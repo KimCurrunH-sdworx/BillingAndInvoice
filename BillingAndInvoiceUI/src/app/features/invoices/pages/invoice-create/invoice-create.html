@@ -1,0 +1,90 @@
+<div class="mb-3">
+  <a routerLink="/invoices" class="btn btn-outline-secondary btn-sm">
+    ← Back to Invoices
+  </a>
+</div>
+
+<!-- Header Banner -->
+<div class="p-4 mb-4 rounded-3 text-white shadow-sm" style="background: linear-gradient(135deg, #3a1c71 0%, #d76d77 50%, #ffaf7b 100%);">
+  <h2 class="fw-bold mb-1">Create New Invoice Draft</h2>
+  <p class="mb-0 opacity-75">Select a client and specify key billing dates to start an invoice draft.</p>
+</div>
+
+<div class="row justify-content-center">
+  <div class="col-lg-8">
+    <div class="card border-0 shadow-sm">
+      <div class="card-body p-4">
+        <form [formGroup]="invoiceForm" (ngSubmit)="onSubmit()">
+          
+          <!-- Client Selection -->
+          <div class="mb-4">
+            <label class="form-label fw-semibold">Select Client *</label>
+            @if (isLoadingClients()) {
+              <div class="input-group">
+                <span class="input-group-text"><div class="spinner-border spinner-border-sm" role="status"></div></span>
+                <input type="text" class="form-control" value="Loading client list..." disabled />
+              </div>
+            } @else {
+              <select 
+                formControlName="clientId" 
+                class="form-select form-select-lg"
+                [ngClass]="{'is-invalid': invoiceForm.get('clientId')?.invalid && invoiceForm.get('clientId')?.touched}">
+                <option value="" disabled>-- Select a Client --</option>
+                @for (client of clients(); track client.id) {
+                  <option [value]="client.id">{{ client.firstName }} {{ client.lastName }}</option>
+                }
+              </select>
+              <div class="invalid-feedback">
+                Please select a client for this invoice.
+              </div>
+            }
+          </div>
+
+          <div class="row g-3 mb-4">
+            <!-- Issue Date -->
+            <div class="col-md-6">
+              <label class="form-label fw-semibold">Issue Date *</label>
+              <input 
+                type="date" 
+                formControlName="issueDate" 
+                class="form-control form-control-lg"
+                [ngClass]="{'is-invalid': invoiceForm.get('issueDate')?.invalid && invoiceForm.get('issueDate')?.touched}" />
+              <div class="invalid-feedback">
+                Issue date is required.
+              </div>
+            </div>
+
+            <!-- Due Date -->
+            <div class="col-md-6">
+              <label class="form-label fw-semibold">Due Date *</label>
+              <input 
+                type="date" 
+                formControlName="dueDate" 
+                class="form-control form-control-lg"
+                [ngClass]="{'is-invalid': invoiceForm.get('dueDate')?.invalid && invoiceForm.get('dueDate')?.touched}" />
+              <div class="invalid-feedback">
+                Due date is required.
+              </div>
+            </div>
+          </div>
+
+          <div class="d-flex justify-content-end gap-2 border-top pt-3">
+            <a routerLink="/invoices" class="btn btn-outline-secondary btn-lg">Cancel</a>
+            <button 
+              type="submit" 
+              class="btn btn-primary btn-lg fw-semibold" 
+              [disabled]="invoiceForm.invalid || isSubmitting()">
+              @if (isSubmitting()) {
+                <span class="spinner-border spinner-border-sm me-2" role="status"></span>
+                Creating Draft...
+              } @else {
+                Create Draft & Add Items →
+              }
+            </button>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

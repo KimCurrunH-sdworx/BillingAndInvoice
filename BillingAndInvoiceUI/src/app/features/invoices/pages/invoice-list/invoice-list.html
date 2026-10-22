@@ -1,0 +1,96 @@
+<!-- Hero Banner Header -->
+<div class="p-4 mb-4 rounded-3 text-white shadow-sm"
+    style="background: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%);">
+    <div class="d-flex justify-content-between align-items-center">
+        <div>
+            <h2 class="fw-bold mb-1">Invoices Directory</h2>
+            <p class="mb-0 opacity-75">Track billing cycles, balances, and payment statuses.</p>
+        </div>
+        <a routerLink="/invoices/new" class="btn btn-light btn-lg fw-semibold shadow-sm">
+            + Create New Invoice
+        </a>
+    </div>
+</div>
+
+<!-- Controls: Search Bar & Status Filters -->
+<div class="card border-0 shadow-sm mb-4">
+    <div class="card-body">
+        <div class="row g-3 align-items-center">
+            <!-- Search Input -->
+            <div class="col-md-6">
+                <input type="text" class="form-control" placeholder="🔍 Search by Invoice # or Client Name..."
+                    [value]="searchFilter()" (input)="updateSearch($event)" />
+            </div>
+
+            <!-- Status Filter Buttons -->
+            <div class="col-md-6 text-md-end">
+                <div class="btn-group" role="group">
+                    @for (tab of ['All', 'Draft', 'Sent', 'Partially Paid', 'Paid', 'Overdue']; track tab) {
+                    <button type="button" class="btn btn-outline-dark btn-sm" [class.active]="statusFilter() === tab"
+                        (click)="statusFilter.set(tab)">
+                        {{ tab }}
+                    </button>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Invoice List Table -->
+<div class="card border-0 shadow-sm">
+    <div class="card-body p-0">
+        @if (isLoading()) {
+        <div class="text-center p-5">
+            <div class="spinner-border text-primary" role="status"></div>
+            <p class="mt-2 text-muted">Loading invoices...</p>
+        </div>
+        } @else if (filteredInvoices().length === 0) {
+        <div class="text-center p-5">
+            <h5 class="text-muted">No invoices found</h5>
+            <p>No records match your selected filters.</p>
+        </div>
+        } @else {
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th>Invoice #</th>
+                        <th>Client</th>
+                        <th>Issue Date</th>
+                        <th>Due Date</th>
+                        <th>Status</th>
+                        <th>Total Amount</th>
+                        <th>Outstanding</th>
+                        <th class="text-end">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (invoice of filteredInvoices(); track invoice.id) {
+                    <tr>
+                        <td class="fw-bold text-primary">{{ invoice.invoiceNumber }}</td>
+                        <td class="fw-semibold">{{ invoice.clientName }}</td>
+                        <td>{{ invoice.issueDate | date:'mediumDate' }}</td>
+                        <td>{{ invoice.dueDate | date:'mediumDate' }}</td>
+                        <td>
+                            <span class="badge" [ngClass]="getStatusBadgeClass(invoice.status)">
+                                {{ invoice.status }}
+                            </span>
+                        </td>
+                        <td class="fw-bold">{{ invoice.totalAmount | currency:'Rs':'symbol':'1.2-2' }}</td>
+                        <td class="text-danger fw-semibold">
+                            {{ invoice.amountOutstanding | currency:'Rs':'symbol':'1.2-2' }}
+                        </td>
+                        <td class="text-end">
+                            <a [routerLink]="['/invoices', invoice.id]" class="btn btn-sm btn-outline-primary">
+                                View Hub
+                            </a>
+                        </td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        }
+    </div>
+</div>

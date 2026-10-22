@@ -1,0 +1,66 @@
+<div class="mb-3">
+  <a routerLink="/clients" class="btn btn-outline-secondary btn-sm">
+    ← Back to Clients List
+  </a>
+</div>
+
+@if (isLoading()) {
+  <div class="text-center p-5">
+    <div class="spinner-border text-primary" role="status"></div>
+    <p class="mt-2 text-muted">Loading client profile...</p>
+  </div>
+} @else if (errorMessage()) {
+  <div class="alert alert-danger shadow-sm" role="alert">
+    {{ errorMessage() }}
+  </div>
+} @else if (client()) {
+  <!-- Hero Card Banner -->
+  <div class="card border-0 shadow-sm mb-4">
+    <div class="card-body p-4 bg-gradient text-white rounded" style="background: linear-gradient(135deg, #2c3e50 0%, #4ca1af 100%);">
+      <div class="d-flex justify-content-between align-items-center">
+        <div>
+          <span class="badge bg-light text-dark mb-2">Client #{{ client()?.id }}</span>
+          <h2 class="fw-bold mb-1">{{ client()?.name }}</h2>
+          <p class="mb-0 opacity-75">✉️ {{ client()?.email }}</p>
+        </div>
+        <div>
+          <!-- Quick Action: Create Invoice for this specific Client -->
+          <a [routerLink]="['/invoices/new']" [queryParams]="{ clientId: client()?.id }" class="btn btn-light btn-lg fw-semibold shadow-sm">
+            + Create Invoice
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Profile Details Card -->
+  <div class="row">
+    <div class="col-md-6 mb-4">
+      <div class="card border-0 shadow-sm h-100">
+        <div class="card-header bg-white border-0 fw-bold">
+          Account Overview
+        </div>
+        <div class="card-body">
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item d-flex justify-content-between align-items-center ps-0 pe-0">
+              <span class="text-muted">Client ID</span>
+              <span class="fw-semibold">{{ client()?.id }}</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center ps-0 pe-0">
+              <span class="text-muted">First Name</span>
+              <span class="fw-semibold">{{ client()?.firstName }}</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center ps-0 pe-0">
+              <span class="text-muted">Last Name</span>
+              <span class="fw-semibold">{{ client()?.lastName }}</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center ps-0 pe-0">
+              <span class="text-muted">Email Address</span>
+              <span class="fw-semibold">{{ client()?.email }}</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+}

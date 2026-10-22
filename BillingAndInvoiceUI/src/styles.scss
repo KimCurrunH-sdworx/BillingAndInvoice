@@ -1,0 +1,98 @@
+/* src/styles.scss */
+@import 'bootstrap/scss/bootstrap';
+
+:root {
+  --primary-gradient: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+  --accent-gradient: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+  --dark-gradient: linear-gradient(135deg, #141e30 0%, #243b55 100%);
+  --card-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+  --card-shadow-hover: 0 20px 30px -10px rgba(0, 0, 0, 0.12), 0 12px 15px -8px rgba(0, 0, 0, 0.08);
+}
+
+body {
+  background-color: #f8fafc;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  color: #334155;
+}
+
+/* Card Elevation & Smooth Hover Transitions */
+.card {
+  border-radius: 0.75rem !important;
+  box-shadow: var(--card-shadow);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.card:hover {
+  box-shadow: var(--card-shadow-hover);
+}
+
+/* Hero Banners with Soft Parallax/Glow Feel */
+.bg-gradient {
+  position: relative;
+  overflow: hidden;
+}
+
+.bg-gradient::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -20%;
+  width: 300px;
+  height: 300px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 50%;
+  pointer-events: none;
+  transform: rotate(45deg);
+}
+
+/* Modern Button Polish */
+.btn {
+  border-radius: 0.5rem;
+  transition: all 0.2s ease-in-out;
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+}
+
+.btn:active {
+  transform: translateY(0);
+}
+
+/* Fade In Animation for Page Transitions */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+main.container {
+  animation: fadeIn 0.35s ease-out forwards;
+}
+
+/* Custom Table Polish */
+.table {
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.table thead th {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #64748b;
+  border-bottom: 2px solid #e2e8f0;
+}
+
+.table tbody tr {
+  transition: background-color 0.15s ease;
+}
+
+.table-hover tbody tr:hover {
+  background-color: #f1f5f9 !important;
+}

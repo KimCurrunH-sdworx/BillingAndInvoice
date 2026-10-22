@@ -1,0 +1,126 @@
+<!-- Hero Banner -->
+<div class="p-4 mb-4 rounded-3 text-white shadow-sm" style="background: linear-gradient(135deg, #141e30 0%, #243b55 100%);">
+  <div class="d-flex justify-content-between align-items-center">
+    <div>
+      <h2 class="fw-bold mb-1">Financial Overview Dashboard</h2>
+      <p class="mb-0 opacity-75">Real-time summary of revenue, client volume, and invoice statuses.</p>
+    </div>
+    <div class="d-flex gap-2">
+      <a routerLink="/clients" class="btn btn-outline-light fw-semibold">Manage Clients</a>
+      <a routerLink="/invoices/new" class="btn btn-light fw-semibold shadow-sm">+ New Invoice</a>
+    </div>
+  </div>
+</div>
+
+@if (isLoading()) {
+  <div class="text-center p-5">
+    <div class="spinner-border text-primary" role="status"></div>
+    <p class="mt-2 text-muted">Calculating financial metrics...</p>
+  </div>
+} @else {
+  <!-- Metric Cards Row -->
+  <div class="row g-3 mb-4">
+    <div class="col-md-3">
+      <div class="card border-0 shadow-sm p-3 h-100" style="border-left: 5px solid #28a745 !important;">
+        <span class="text-muted small fw-semibold text-uppercase">Total Collected Revenue</span>
+        <h3 class="fw-bold text-success mt-2 mb-0">{{ totalRevenue() | currency:'Rs':'symbol':'1.2-2' }}</h3>
+        <span class="text-muted small mt-1">From paid invoices</span>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <div class="card border-0 shadow-sm p-3 h-100" style="border-left: 5px solid #dc3545 !important;">
+        <span class="text-muted small fw-semibold text-uppercase">Outstanding Balance</span>
+        <h3 class="fw-bold text-danger mt-2 mb-0">{{ totalOutstanding() | currency:'Rs':'symbol':'1.2-2' }}</h3>
+        <span class="text-muted small mt-1">Pending payments</span>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <div class="card border-0 shadow-sm p-3 h-100" style="border-left: 5px solid #0d6efd !important;">
+        <span class="text-muted small fw-semibold text-uppercase">Total Clients</span>
+        <h3 class="fw-bold text-primary mt-2 mb-0">{{ totalClients() }}</h3>
+        <span class="text-muted small mt-1">Active customer records</span>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <div class="card border-0 shadow-sm p-3 h-100" style="border-left: 5px solid #6c757d !important;">
+        <span class="text-muted small fw-semibold text-uppercase">Total Invoices</span>
+        <h3 class="fw-bold text-dark mt-2 mb-0">{{ totalInvoices() }}</h3>
+        <span class="text-muted small mt-1">{{ draftCount() }} Drafts | {{ overdueCount() }} Overdue</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Status Distribution Bar -->
+  <div class="card border-0 shadow-sm mb-4">
+    <div class="card-body">
+      <h6 class="fw-bold text-muted mb-3">INVOICE STATUS DISTRIBUTION</h6>
+      <div class="row text-center">
+        <div class="col">
+          <span class="text-muted d-block small">Paid</span>
+          <span class="badge bg-success fs-6 mt-1">{{ paidCount() }}</span>
+        </div>
+        <div class="col">
+          <span class="text-muted d-block small">Draft</span>
+          <span class="badge bg-secondary fs-6 mt-1">{{ draftCount() }}</span>
+        </div>
+        <div class="col">
+          <span class="text-muted d-block small">Overdue</span>
+          <span class="badge bg-danger fs-6 mt-1">{{ overdueCount() }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Recent Invoices Table -->
+  <div class="card border-0 shadow-sm">
+    <div class="card-header bg-white fw-bold d-flex justify-content-between align-items-center py-3">
+      <span>Recent Invoices</span>
+      <a routerLink="/invoices" class="btn btn-sm btn-outline-primary">View All Invoices →</a>
+    </div>
+    <div class="card-body p-0">
+      @if (recentInvoices().length === 0) {
+        <div class="text-center p-4 text-muted">
+          No invoices created yet. Click "+ New Invoice" above to get started.
+        </div>
+      } @else {
+        <div class="table-responsive">
+          <table class="table table-hover align-middle mb-0">
+            <thead class="table-light">
+              <tr>
+                <th>Invoice #</th>
+                <th>Client</th>
+                <th>Due Date</th>
+                <th>Status</th>
+                <th>Total Amount</th>
+                <th class="text-end">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (invoice of recentInvoices(); track invoice.id) {
+                <tr>
+                  <td class="fw-bold text-primary">{{ invoice.invoiceNumber }}</td>
+                  <td class="fw-semibold">{{ invoice.clientName }}</td>
+                  <td>{{ invoice.dueDate | date:'mediumDate' }}</td>
+                  <td>
+                    <span class="badge" [ngClass]="getStatusBadgeClass(invoice.status)">
+                      {{ invoice.status }}
+                    </span>
+                  </td>
+                  <td class="fw-bold">{{ invoice.totalAmount | currency:'USD':'symbol':'1.2-2' }}</td>
+                  <td class="text-end">
+                    <a [routerLink]="['/invoices', invoice.id]" class="btn btn-sm btn-outline-primary">
+                      View Hub
+                    </a>
+                  </td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      }
+    </div>
+  </div>
+}
