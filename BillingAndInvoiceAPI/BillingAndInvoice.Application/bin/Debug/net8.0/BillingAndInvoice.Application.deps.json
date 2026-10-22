@@ -1,0 +1,39 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v8.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v8.0": {
+      "BillingAndInvoice.Application/1.0.0": {
+        "dependencies": {
+          "BillingAndInvoice.Domain": "1.0.0"
+        },
+        "runtime": {
+          "BillingAndInvoice.Application.dll": {}
+        }
+      },
+      "BillingAndInvoice.Domain/1.0.0": {
+        "runtime": {
+          "BillingAndInvoice.Domain.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "BillingAndInvoice.Application/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "BillingAndInvoice.Domain/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

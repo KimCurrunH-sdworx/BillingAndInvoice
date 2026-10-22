@@ -1,0 +1,16 @@
+{
+  "version": 2,
+  "dgSpecHash": "qR5+vEQS3HI=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\SD026848\\source\\repos\\BillingAndInvoice\\BillingAndInvoiceAPI\\BillingAndInvoice.API\\BillingAndInvoice.API.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\SD026848\\.nuget\\packages\\microsoft.aspnetcore.openapi\\10.0.11\\microsoft.aspnetcore.openapi.10.0.11.nupkg.sha512",
+    "C:\\Users\\SD026848\\.nuget\\packages\\microsoft.entityframeworkcore\\8.0.30\\microsoft.entityframeworkcore.8.0.30.nupkg.sha512",
+    "C:\\Users\\SD026848\\.nuget\\packages\\microsoft.entityframeworkcore.abstractions\\8.0.30\\microsoft.entityframeworkcore.abstractions.8.0.30.nupkg.sha512",
+    "C:\\Users\\SD026848\\.nuget\\packages\\microsoft.entityframeworkcore.analyzers\\8.0.30\\microsoft.entityframeworkcore.analyzers.8.0.30.nupkg.sha512",
+    "C:\\Users\\SD026848\\.nuget\\packages\\microsoft.entityframeworkcore.inmemory\\8.0.30\\microsoft.entityframeworkcore.inmemory.8.0.30.nupkg.sha512",
+    "C:\\Users\\SD026848\\.nuget\\packages\\microsoft.openapi\\2.7.5\\microsoft.openapi.2.7.5.nupkg.sha512",
+    "C:\\Users\\SD026848\\.nuget\\packages\\scalar.aspnetcore\\2.17.2\\scalar.aspnetcore.2.17.2.nupkg.sha512"
+  ],
+  "logs": []
+}

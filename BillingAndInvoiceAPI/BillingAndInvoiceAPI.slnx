@@ -1,0 +1,9 @@
+<Solution>
+  <Folder Name="/Solution Items/">
+    <File Path=".editorconfig" />
+  </Folder>
+  <Project Path="BillingAndInvoice.Application/BillingAndInvoice.Application.csproj" />
+  <Project Path="BillingAndInvoice.API/BillingAndInvoice.API.csproj" />
+  <Project Path="BillingAndInvoice.Domain/BillingAndInvoice.Domain.csproj" />
+  <Project Path="BillingAndInvoice.Infrastructure/BillingAndInvoice.Infrastructure.csproj" />
+</Solution>
